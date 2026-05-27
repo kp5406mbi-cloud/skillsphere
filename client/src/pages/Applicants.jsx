@@ -231,7 +231,7 @@ function Applicants() {
 
                     <a
 
-                      href={`${import.meta.env.VITE_API_URL}/${app.resume}`}
+                      href={app.resume}
 
                       target="_blank"
 
