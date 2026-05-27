@@ -22,6 +22,15 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+const fs = require("fs");
+
+if (!fs.existsSync("uploads")) {
+
+  fs.mkdirSync("uploads");
+
+}
+
 app.use("/api/messages", messageRoutes);
 
 app.use("/uploads", express.static("uploads"));
