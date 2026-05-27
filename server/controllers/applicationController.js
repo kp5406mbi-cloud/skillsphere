@@ -19,6 +19,8 @@ const applyToJob = async (
 
     } = req.body;
 
+    console.log("FILE:", req.file);
+    
     const application =
       await Application.create({
 
