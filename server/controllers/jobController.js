@@ -95,7 +95,7 @@ const applyToJob = async (req, res) => {
       req.body.estimatedDays;
 
     const job = await Job.findById(
-      req.params.id
+      req.params.jobId
     );
 
     if (!job) {
