@@ -70,7 +70,7 @@ router.get(
 
 router.post(
 
-  "/:id/apply",
+    "/:jobId/apply",
 
   protect,
 
