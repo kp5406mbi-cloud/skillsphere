@@ -231,7 +231,7 @@ function Applicants() {
 
                     <a
 
-                      href={`http://localhost:5000/${app.resume}`}
+                      href={`${import.meta.env.VITE_API_URL}/${app.resume}`}
 
                       target="_blank"
 
