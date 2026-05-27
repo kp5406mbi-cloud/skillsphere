@@ -38,8 +38,6 @@ if (!fs.existsSync("uploads")) {
 
 app.use("/api/messages", messageRoutes);
 
-app.use("/uploads", express.static("uploads"));
-
 app.use(
   "/api/notifications",
   notificationRoutes
