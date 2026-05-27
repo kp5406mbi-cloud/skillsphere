@@ -250,7 +250,7 @@ const getJobApplicants = async (req, res) => {
   try {
 
     const job = await Job.findById(
-      req.params.jobId
+      req.params.id
     ).populate(
       "applications.freelancer",
       "name email"
