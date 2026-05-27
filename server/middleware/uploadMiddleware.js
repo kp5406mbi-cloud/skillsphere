@@ -1,30 +1,34 @@
 const multer = require("multer");
 
-const cloudinary = require("../config/cloudinary");
+const {
+  CloudinaryStorage
+} = require("multer-storage-cloudinary");
 
-const { CloudinaryStorage } =
-  require("multer-storage-cloudinary");
+const cloudinary =
+  require("../config/cloudinary");
 
-const storage = new CloudinaryStorage({
+const storage =
+  new CloudinaryStorage({
 
-  cloudinary: cloudinary,
+    cloudinary,
 
-  params: async (req, file) => {
-
-    return {
+    params: async (req, file) => ({
 
       folder: "skillsphere_resumes",
 
       resource_type: "raw",
 
+      format: "pdf",
+
       public_id:
-        Date.now() + "-" + file.originalname
+        Date.now() +
+        "-" +
+        file.originalname
+          .replace(".pdf", "")
 
-    };
+    })
 
-  }
-
-});
+  });
 
 const upload = multer({
   storage
