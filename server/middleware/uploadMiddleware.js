@@ -1,13 +1,21 @@
 const multer = require("multer");
 
-const storage = multer.diskStorage({
+const cloudinary = require("../config/cloudinary");
 
-  destination: function (req, file, cb) {
-    cb(null, "uploads/");
-  },
+const {
+  CloudinaryStorage
+} = require("multer-storage-cloudinary");
 
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
+const storage = new CloudinaryStorage({
+
+  cloudinary,
+
+  params: {
+
+    folder: "skillsphere_resumes",
+
+    resource_type: "raw"
+
   }
 
 });
