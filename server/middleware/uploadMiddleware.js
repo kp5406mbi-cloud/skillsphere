@@ -2,19 +2,25 @@ const multer = require("multer");
 
 const cloudinary = require("../config/cloudinary");
 
-const {
-  CloudinaryStorage
-} = require("multer-storage-cloudinary");
+const { CloudinaryStorage } =
+  require("multer-storage-cloudinary");
 
 const storage = new CloudinaryStorage({
 
-  cloudinary,
+  cloudinary: cloudinary,
 
-  params: {
+  params: async (req, file) => {
 
-    folder: "skillsphere_resumes",
+    return {
 
-    resource_type: "raw"
+      folder: "skillsphere_resumes",
+
+      resource_type: "raw",
+
+      public_id:
+        Date.now() + "-" + file.originalname
+
+    };
 
   }
 
