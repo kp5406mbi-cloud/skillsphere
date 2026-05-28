@@ -1,14 +1,14 @@
-const express = require("express");
+const express =
+  require("express");
 
-const Razorpay = require("razorpay");
+const Razorpay =
+  require("razorpay");
 
-const router = express.Router();
+const router =
+  express.Router();
 
 const protect =
   require("../middleware/authMiddleware");
-
-const routerPayments =
-  express.Router();
 
 console.log(
   "KEY:",
@@ -20,15 +20,34 @@ console.log(
   process.env.RAZORPAY_KEY_SECRET
 );
 
-const razorpay = new Razorpay({
+const razorpay =
+  new Razorpay({
 
-  key_id:
-    process.env.RAZORPAY_KEY_ID,
+    key_id:
+      process.env.RAZORPAY_KEY_ID,
 
-  key_secret:
-    process.env.RAZORPAY_KEY_SECRET
+    key_secret:
+      process.env.RAZORPAY_KEY_SECRET
 
-});
+  });
+
+const {
+
+  verifyPayment
+
+} = require(
+  "../controllers/paymentController"
+);
+
+router.post(
+
+  "/verify",
+
+  protect,
+
+  verifyPayment
+
+);
 
 router.post(
 
@@ -45,13 +64,19 @@ router.post(
         req.body
       );
 
-      const { amount } = req.body;
+      const { amount } =
+        req.body;
 
       const options = {
 
-        amount: amount * 100,
+        amount:
+          amount * 100,
 
-        currency: "INR"
+        currency:
+          "INR",
+
+        receipt:
+          `receipt_${Date.now()}`
 
       };
 
@@ -70,7 +95,11 @@ router.post(
         order
       );
 
-      res.json({ order });
+      res.status(200).json({
+
+        order
+
+      });
 
     }
 
@@ -80,7 +109,10 @@ router.post(
         "PAYMENT ERROR:"
       );
 
-      console.log(error.error || error.message || error);
+      console.log(
+        "FULL ERROR:",
+        error
+      );
 
       res.status(500).json({
 
@@ -95,4 +127,5 @@ router.post(
 
 );
 
-module.exports = router;
+module.exports =
+  router;

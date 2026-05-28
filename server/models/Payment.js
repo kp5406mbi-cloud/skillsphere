@@ -48,11 +48,18 @@ const paymentSchema =
 
       razorpayOrderId: String,
 
-      paymentId: String,
+      paymentId: {
+
+  type: String,
+
+  unique: true
+
+},
 
       status: {
 
         type: String,
+        
 
         enum: [
           "pending",

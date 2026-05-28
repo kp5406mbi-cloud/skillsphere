@@ -45,7 +45,7 @@ const applyToJob = async (
                     "skillsphere_resumes",
 
                   resource_type:
-                    "raw",
+                    "auto",
 
                     type: "upload",
 
