@@ -23,15 +23,35 @@ const {
 );
 
 router.post(
-
   "/:jobId/apply",
-
   protect,
+  (req, res, next) => {
 
-  upload.single("resume"),
+    upload.single("resume")(
+      req,
+      res,
+      function (err) {
 
+        if (err) {
+
+          console.log(
+            "UPLOAD ERROR:",
+            err
+          );
+
+          return res.status(500).json({
+            message: err.message
+          });
+
+        }
+
+        next();
+
+      }
+    );
+
+  },
   applyToJob
-
 );
 
 router.get(
