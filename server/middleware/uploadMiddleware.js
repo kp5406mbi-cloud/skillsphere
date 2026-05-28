@@ -18,11 +18,11 @@ const storage =
 
       resource_type: "raw",
 
-      public_id:
-        Date.now() +
-        "-" +
-        file.originalname
-          .replace(".pdf", "")
+      format: "pdf",
+
+      use_filename: true,
+
+      unique_filename: true
 
     })
 
