@@ -422,10 +422,7 @@ function MyJobs() {
 
                                       <a
 
-                                        href={app.resume.replace(
-  "/upload/",
-  "/upload/fl_inline/"
-)}
+                                          href={app.resume}
 
                                         target="_blank"
 
