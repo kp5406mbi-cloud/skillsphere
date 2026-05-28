@@ -4,6 +4,12 @@ const Application =
 const Notification =
   require("../models/Notification");
 
+const cloudinary =
+  require("../config/cloudinary");
+
+const streamifier =
+  require("streamifier");
+
 const applyToJob = async (
   req,
   res
@@ -21,6 +27,61 @@ const applyToJob = async (
 
     console.log("FILE:", req.file);
 
+    let resumeUrl = "";
+
+    if (req.file) {
+
+      const result =
+        await new Promise(
+
+          (resolve, reject) => {
+
+            const stream =
+              cloudinary.uploader.upload_stream(
+
+                {
+
+                  folder:
+                    "skillsphere_resumes",
+
+                  resource_type:
+                    "raw"
+
+                },
+
+                (error, result) => {
+
+                  if (error) {
+
+                    reject(error);
+
+                  }
+
+                  else {
+
+                    resolve(result);
+
+                  }
+
+                }
+
+              );
+
+            streamifier
+              .createReadStream(
+                req.file.buffer
+              )
+              .pipe(stream);
+
+          }
+
+        );
+
+      resumeUrl =
+        result.secure_url;
+
+    }
+
     const application =
       await Application.create({
 
@@ -34,9 +95,7 @@ const applyToJob = async (
 
         estimatedDays,
 
-        resume: req.file
-          ? req.file.path
-          : "",
+        resume: resumeUrl,
 
         status: "pending"
 
@@ -50,7 +109,7 @@ const applyToJob = async (
 
   catch (error) {
 
-     console.log(error);
+    console.log(error);
 
     res.status(500).json({
 
