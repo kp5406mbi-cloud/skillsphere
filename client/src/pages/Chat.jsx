@@ -11,10 +11,16 @@ import { toast } from "react-toastify";
 
 function Chat() {
 
-  const user =
-    JSON.parse(
-      localStorage.getItem("user")
-    );
+  const storedUser =
+  JSON.parse(
+    localStorage.getItem("user")
+  );
+
+const currentUserId =
+
+  storedUser?._id ||
+
+  storedUser?.user?._id;
 
   const { id } = useParams();
 
@@ -170,8 +176,12 @@ function Chat() {
 
               const isOwnMessage =
 
-                senderId?.toString() ===
-                user?._id?.toString();
+  senderId?.toString() ===
+  currentUserId?.toString();
+
+  console.log("SENDER ID:", senderId);
+console.log("CURRENT USER ID:", currentUserId);
+console.log("IS OWN:", isOwnMessage);
 
               return (
 
