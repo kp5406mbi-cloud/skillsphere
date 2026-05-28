@@ -144,26 +144,26 @@ function Chat() {
           {
 messages.map((msg) => {
 
-  console.log("SENDER:", msg.sender);
+  console.log("FULL MESSAGE:", msg);
 
   return (
 
     <div
       key={msg._id}
       className={
-        msg.sender.toString() ===
-        user._id
+  (msg.sender._id || msg.sender).toString() ===
+  user._id
 
-          ? "text-right"
+    ? "text-right"
 
-          : "text-left"
-      }
+    : "text-left"
+}
     >
 
       <div
         className={
-          msg.sender.toString() ===
-          user._id
+          (msg.sender._id || msg.sender).toString() ===
+user._id
 
             ? `
               inline-block
