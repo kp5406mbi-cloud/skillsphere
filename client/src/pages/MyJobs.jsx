@@ -61,78 +61,147 @@ function MyJobs() {
 
   };
 
-  const handlePayment = async (amount) => {
+  const handlePayment = async (
+    amount,
+    freelancerId,
+    jobId
+  ) => {
 
-  try {
+    try {
 
-    const { data } = await API.post(
+      const { data } = await API.post(
 
-      "/payments/create-order",
+        "/payments/create-order",
 
-      { amount },
+        {
+          amount,
+          freelancerId,
+          jobId
+        },
 
-      {
+        {
 
-        headers: {
+          headers: {
 
-          Authorization:
-            `Bearer ${localStorage.getItem("token")}`
+            Authorization:
+              `Bearer ${localStorage.getItem("token")}`
+
+          }
 
         }
 
-      }
+      );
 
-    );
+      console.log(data);
 
-    console.log(data);
+      const options = {
 
-    const options = {
+        key: "rzp_test_Su8OSFCk8Jf5b4",
 
-      key: "rzp_test_Su8OSFCk8Jf5b4",
+        amount: data.order.amount,
 
-      amount: data.order.amount,
+        currency: "INR",
 
-      currency: "INR",
+        name: "SkillSphere",
 
-      name: "SkillSphere",
+        description: "Freelancer Payment",
 
-      description: "Freelancer Payment",
+        order_id: data.order.id,
 
-      order_id: data.order.id,
+        handler: async function (
+          response
+        ) {
 
-      handler: function (response) {
+          try {
 
-        alert("Payment Successful");
+            await API.post(
 
-        console.log(response);
+              "/payments/verify",
 
-      },
+              {
 
-      theme: {
+                razorpay_order_id:
+                  response.razorpay_order_id,
 
-        color: "#7c3aed"
+                razorpay_payment_id:
+                  response.razorpay_payment_id,
 
-      }
+                razorpay_signature:
+                  response.razorpay_signature,
 
-    };
+                freelancerId,
 
-    const razorpay = new window.Razorpay(
-      options
-    );
+                jobId,
 
-    razorpay.open();
+                amount
 
-  }
+              },
 
-  catch (error) {
+              {
 
-    console.log(error);
+                headers: {
 
-    alert("Payment Failed");
+                  Authorization:
+                    `Bearer ${localStorage.getItem("token")}`
 
-  }
+                }
 
-};
+              }
+
+            );
+
+            alert(
+              "Payment Successful"
+            );
+
+          }
+
+          catch (error) {
+
+            console.log(error);
+
+            alert(
+              "Payment Verification Failed"
+            );
+
+          }
+
+        },
+
+        prefill: {
+
+          name: "SkillSphere User",
+
+          email: "user@example.com"
+
+        },
+
+        theme: {
+
+          color: "#7c3aed"
+
+        }
+
+      };
+
+      const razorpay =
+        new window.Razorpay(
+          options
+        );
+
+      razorpay.open();
+
+    }
+
+    catch (error) {
+
+      console.log(error);
+
+      alert("Payment Failed");
+
+    }
+
+  };
 
   return (
 
@@ -349,16 +418,11 @@ function MyJobs() {
 
                                   {
 
-                                    app.resume && (
+                                    app.resume ? (
 
                                       <a
 
-                                        
-                                        href={app.resume.replace(
-  "/upload/",
-  "/upload/fl_attachment/"
-)}
-                                        
+                                        href={app.resume}
 
                                         target="_blank"
 
@@ -379,6 +443,14 @@ function MyJobs() {
                                         View Resume
 
                                       </a>
+
+                                    ) : (
+
+                                      <p className="text-red-400">
+
+                                        Resume Not Uploaded
+
+                                      </p>
 
                                     )
 
