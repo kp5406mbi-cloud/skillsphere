@@ -40,7 +40,10 @@ function MyJobs() {
           (job) =>
 
             job.client?._id ===
-            currentUser.id
+(
+  currentUser._id ||
+  currentUser.id
+)
 
         );
 
@@ -184,12 +187,24 @@ function MyJobs() {
 
       };
 
-      const razorpay =
-        new window.Razorpay(
-          options
-        );
+      if (!window.Razorpay) {
 
-      razorpay.open();
+  alert(
+    "Razorpay SDK failed to load"
+  );
+
+  return;
+
+}
+
+const razorpay =
+  new window.Razorpay(
+    options
+  );
+
+razorpay.open();
+
+      
 
     }
 
