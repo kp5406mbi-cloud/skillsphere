@@ -255,11 +255,11 @@ function Applicants() {
 
                       className={
 
-                        app.status === "Accepted"
+                        app.status === "accepted"
 
                           ? "text-green-400"
 
-                          : app.status === "Rejected"
+                          : app.status === "rejected"
 
                           ? "text-red-400"
 
@@ -269,9 +269,10 @@ function Applicants() {
 
                     >
 
-                      {
-                        app.status || "Pending"
-                      }
+                      {app.status
+  ? app.status.charAt(0).toUpperCase() +
+    app.status.slice(1)
+  : "Pending"}
 
                     </span>
 
@@ -293,7 +294,10 @@ function Applicants() {
 
                         <a
 
-                          href={app.resume}
+                          href={app.resume.replace(
+  "/upload/",
+  "/upload/fl_inline/"
+)}
 
                           target="_blank"
 
@@ -332,12 +336,12 @@ function Applicants() {
                       onClick={() =>
                         handleStatusUpdate(
                           app._id,
-                          "Accepted"
+                          "accepted"
                         )
                       }
 
                       disabled={
-                        app.status === "Accepted"
+                        app.status === "accepted"
                       }
 
                       className={`
@@ -346,7 +350,7 @@ function Applicants() {
                         rounded
 
                         ${
-                          app.status === "Accepted"
+                          app.status === "accepted"
 
                             ? "bg-gray-600 cursor-not-allowed"
 
@@ -358,7 +362,7 @@ function Applicants() {
 
                       {
 
-                        app.status === "Accepted"
+                        app.status === "accepted"
 
                           ? "Accepted"
 
@@ -373,12 +377,12 @@ function Applicants() {
                       onClick={() =>
                         handleStatusUpdate(
                           app._id,
-                          "Rejected"
+                          "rejected"
                         )
                       }
 
                       disabled={
-                        app.status === "Rejected"
+                        app.status === "rejected"
                       }
 
                       className={`
@@ -387,7 +391,7 @@ function Applicants() {
                         rounded
 
                         ${
-                          app.status === "Rejected"
+                          app.status === "rejected"
 
                             ? "bg-gray-600 cursor-not-allowed"
 
@@ -399,7 +403,7 @@ function Applicants() {
 
                       {
 
-                        app.status === "Rejected"
+                        app.status === "rejected"
 
                           ? "Rejected"
 
@@ -411,7 +415,7 @@ function Applicants() {
 
                     {
 
-                      app.status === "Accepted" && (
+                      app.status === "accepted" && (
 
                         <button
 
@@ -442,7 +446,7 @@ function Applicants() {
 
                     {
 
-                      app.status === "Accepted" && (
+                      app.status === "accepted" && (
 
                         <button
 
