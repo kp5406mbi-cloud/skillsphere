@@ -18,7 +18,7 @@ const storage =
 
       resource_type: "raw",
 
-      format: "pdf",
+      
 
       public_id:
         Date.now() +
