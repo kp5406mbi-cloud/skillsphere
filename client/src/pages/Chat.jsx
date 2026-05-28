@@ -12,9 +12,9 @@ import { toast } from "react-toastify";
 function Chat() {
 
   const user =
-  JSON.parse(
-    localStorage.getItem("user")
-  );
+    JSON.parse(
+      localStorage.getItem("user")
+    );
 
   const { id } = useParams();
 
@@ -49,6 +49,11 @@ function Chat() {
 
         }
 
+      );
+
+      console.log(
+        "MESSAGES:",
+        res.data
       );
 
       setMessages(res.data);
@@ -98,8 +103,8 @@ function Chat() {
 
       );
 
-      setMessages([
-        ...messages,
+      setMessages((prev) => [
+        ...prev,
         res.data
       ]);
 
@@ -109,7 +114,9 @@ function Chat() {
 
     catch (error) {
 
-      console.log(error.response?.data);
+      console.log(
+        error.response?.data
+      );
 
       toast.error(
         "Failed to send message"
@@ -124,7 +131,9 @@ function Chat() {
     <div className="min-h-screen bg-black text-white p-10">
 
       <h1 className="text-4xl font-bold mb-8">
+
         Chat
+
       </h1>
 
       <div
@@ -135,63 +144,84 @@ function Chat() {
           h-[500px]
           flex
           flex-col
-          justify-between
         "
       >
 
-        <div className="overflow-y-auto space-y-4">
+        <div
+          className="
+            flex-1
+            overflow-y-auto
+            space-y-4
+            pr-2
+          "
+        >
 
           {
-messages.map((msg) => {
 
-  console.log("FULL MESSAGE:", msg);
+            messages.map((msg) => {
 
-  return (
+              const senderId =
 
-    <div
-      key={msg._id}
-      className={
-  (msg.sender._id || msg.sender).toString() ===
-  user._id
+                typeof msg.sender === "object"
 
-    ? "text-right"
+                  ? msg.sender._id
 
-    : "text-left"
-}
-    >
+                  : msg.sender;
 
-      <div
-        className={
-          (msg.sender._id || msg.sender).toString() ===
-user._id
+              const isOwnMessage =
 
-            ? `
-              inline-block
-              bg-blue-600
-              px-4
-              py-2
-              rounded-xl
-            `
+                senderId?.toString() ===
+                user?._id?.toString();
 
-            : `
-              inline-block
-              bg-gray-700
-              px-4
-              py-2
-              rounded-xl
-            `
-        }
-      >
+              return (
 
-        {msg.text}
+                <div
 
-      </div>
+                  key={msg._id}
 
-    </div>
+                  className={`
+                    flex
+                    ${
 
-  );
+                      isOwnMessage
 
-})
+                        ? "justify-end"
+
+                        : "justify-start"
+                    }
+                  `}
+
+                >
+
+                  <div
+                    className={`
+                      max-w-[70%]
+                      px-4
+                      py-2
+                      rounded-2xl
+                      break-words
+
+                      ${
+
+                        isOwnMessage
+
+                          ? "bg-blue-600 text-white"
+
+                          : "bg-gray-700 text-white"
+                      }
+                    `}
+                  >
+
+                    {msg.text}
+
+                  </div>
+
+                </div>
+
+              );
+
+            })
+
           }
 
         </div>
@@ -230,6 +260,7 @@ user._id
               py-3
               rounded-xl
               hover:bg-purple-700
+              transition
             "
 
           >
