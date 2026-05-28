@@ -18,9 +18,13 @@ const storage =
 
       resource_type: "raw",
 
+      type: "upload",
+
+      access_mode: "public",
+
       format: "pdf",
 
-      use_filename: true,
+      use_filename: false,
 
       unique_filename: true
 
