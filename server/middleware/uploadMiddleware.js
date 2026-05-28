@@ -1,8 +1,13 @@
-const multer = require("multer");
+const multer =
+  require("multer");
 
 const {
+
   CloudinaryStorage
-} = require("multer-storage-cloudinary");
+
+} = require(
+  "multer-storage-cloudinary"
+);
 
 const cloudinary =
   require("../config/cloudinary");
@@ -12,20 +17,27 @@ const storage =
 
     cloudinary,
 
-    params: async (req, file) => ({
+    params: async (
+      req,
+      file
+    ) => ({
 
-      folder: "skillsphere_resumes",
+      folder:
+        "skillsphere_resumes",
 
-      resource_type: "image",
-
-      format: "pdf"
+      resource_type:
+        "auto"
 
     })
 
   });
 
-const upload = multer({
-  storage
-});
+const upload =
+  multer({
 
-module.exports = upload;
+    storage
+
+  });
+
+module.exports =
+  upload;
