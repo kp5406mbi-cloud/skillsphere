@@ -26,7 +26,13 @@ const storage =
         "skillsphere_resumes",
 
       resource_type:
-        "raw"
+        "raw",
+
+      format:
+        "pdf",
+
+      public_id:
+        Date.now() + "-resume"
 
     })
 
