@@ -11,6 +11,11 @@ import { toast } from "react-toastify";
 
 function Chat() {
 
+  const user =
+  JSON.parse(
+    localStorage.getItem("user")
+  );
+
   const { id } = useParams();
 
   const [messages, setMessages] =
@@ -147,7 +152,7 @@ messages.map((msg) => {
       key={msg._id}
       className={
         msg.sender.toString() ===
-        localStorage.getItem("userId")
+        user._id
 
           ? "text-right"
 
@@ -158,7 +163,7 @@ messages.map((msg) => {
       <div
         className={
           msg.sender.toString() ===
-          localStorage.getItem("userId")
+          user._id
 
             ? `
               inline-block
