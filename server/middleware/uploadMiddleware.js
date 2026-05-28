@@ -16,17 +16,9 @@ const storage =
 
       folder: "skillsphere_resumes",
 
-      resource_type: "raw",
+      resource_type: "image",
 
-      type: "upload",
-
-      access_mode: "public",
-
-      format: "pdf",
-
-      use_filename: false,
-
-      unique_filename: true
+      format: "pdf"
 
     })
 
