@@ -227,11 +227,14 @@ function Applicants() {
 
                 {
 
-                  app.resume && (
+                  true && (
 
                     <a
 
-                      href={app.resume}
+                      href={app.resume.replace(
+  "/upload/",
+  "/upload/fl_attachment/"
+)}
 
                       target="_blank"
 
@@ -365,6 +368,35 @@ function Applicants() {
                   )
 
                 }
+
+                {
+  app.status === "Accepted" && (
+
+    <button
+
+      onClick={() =>
+        navigate(
+          `/payment/${app._id}`
+        )
+      }
+
+      className="
+        bg-yellow-500
+        text-black
+        px-4
+        py-2
+        rounded
+      "
+
+    >
+
+      Pay Now
+
+    </button>
+
+  )
+
+}
 
               </div>
 
