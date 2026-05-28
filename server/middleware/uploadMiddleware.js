@@ -26,7 +26,7 @@ const storage =
         "skillsphere_resumes",
 
       resource_type:
-        "auto"
+        "raw"
 
     })
 
