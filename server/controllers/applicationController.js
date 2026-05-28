@@ -20,7 +20,7 @@ const applyToJob = async (
     } = req.body;
 
     console.log("FILE:", req.file);
-    
+
     const application =
       await Application.create({
 
@@ -49,6 +49,8 @@ const applyToJob = async (
   }
 
   catch (error) {
+
+     console.log(error);
 
     res.status(500).json({
 
