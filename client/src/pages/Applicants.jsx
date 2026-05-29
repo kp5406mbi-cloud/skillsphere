@@ -118,6 +118,160 @@ function Applicants() {
 
   };
 
+  const handlePayment = async (
+  amount,
+  freelancerId,
+  jobId
+) => {
+
+  try {
+
+    const { data } = await API.post(
+
+      "/payments/create-order",
+
+      {
+        amount,
+        freelancerId,
+        jobId
+      },
+
+      {
+
+        headers: {
+
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+
+        }
+
+      }
+
+    );
+
+    console.log("ORDER:", data);
+
+    const options = {
+
+      key: "rzp_test_Su8OSFCk8Jf5b4",
+
+      amount: data.order.amount,
+
+      currency: "INR",
+
+      name: "SkillSphere",
+
+      description: "Freelancer Payment",
+
+      order_id: data.order.id,
+
+      handler: async function (
+        response
+      ) {
+
+        try {
+
+          await API.post(
+
+            "/payments/verify",
+
+            {
+
+              razorpay_order_id:
+                response.razorpay_order_id,
+
+              razorpay_payment_id:
+                response.razorpay_payment_id,
+
+              razorpay_signature:
+                response.razorpay_signature,
+
+              freelancerId,
+
+              jobId,
+
+              amount
+
+            },
+
+            {
+
+              headers: {
+
+                Authorization:
+                  `Bearer ${localStorage.getItem("token")}`
+
+              }
+
+            }
+
+          );
+
+          toast.success(
+            "Payment Successful"
+          );
+
+        }
+
+        catch (error) {
+
+          console.log(error);
+
+          toast.error(
+            "Payment Verification Failed"
+          );
+
+        }
+
+      },
+
+      prefill: {
+
+        name: "SkillSphere User",
+
+        email: "user@example.com"
+
+      },
+
+      theme: {
+
+        color: "#7c3aed"
+
+      }
+
+    };
+
+    if (!window.Razorpay) {
+
+      toast.error(
+        "Razorpay SDK failed to load"
+      );
+
+      return;
+
+    }
+
+    const razorpay =
+      new window.Razorpay(
+        options
+      );
+
+    razorpay.open();
+
+  }
+
+  catch (error) {
+
+    console.log(error);
+
+    toast.error(
+      "Payment Failed"
+    );
+
+  }
+
+};
+
   return (
 
     <div className="min-h-screen bg-black text-white p-10">
@@ -448,9 +602,11 @@ function Applicants() {
                         <button
 
                           onClick={() =>
-                            navigate(
-                              `/payment/${app._id}`
-                            )
+                           handlePayment(
+      app.bidAmount,
+      app.freelancer._id,
+      id
+    )
                           }
 
                           className="
