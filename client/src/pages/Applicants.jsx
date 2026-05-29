@@ -149,6 +149,16 @@ function Applicants() {
 
     );
 
+    if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
+
+  toast.error(
+    "Razorpay key missing"
+  );
+
+  return;
+
+}
+
     console.log("ORDER:", data);
 
     const options = {

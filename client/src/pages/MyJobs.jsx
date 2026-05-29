@@ -4,6 +4,8 @@ import API from "../api/axios";
 
 import { Link } from "react-router-dom";
 
+import { toast } from "react-toastify";
+
 function MyJobs() {
 
   const [jobs, setJobs] = useState([]);
@@ -94,6 +96,16 @@ function MyJobs() {
         }
 
       );
+
+      if (!import.meta.env.VITE_RAZORPAY_KEY_ID) {
+
+  toast.error(
+    "Razorpay key missing"
+  );
+
+  return;
+
+}
 
       console.log(data);
 
