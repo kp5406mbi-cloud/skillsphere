@@ -6,17 +6,33 @@ function Jobs() {
   const [jobs, setJobs] = useState([]);
   const [proposals, setProposals] = useState({});
 
+  const [search, setSearch] = useState("");
+const [minBudget, setMinBudget] = useState("");
+const [maxBudget, setMaxBudget] = useState("");
+const [sort, setSort] = useState("newest");
+
   useEffect(() => {
 
-    fetchJobs();
+  fetchJobs();
 
-  }, []);
+}, [
+
+  search,
+  minBudget,
+  maxBudget,
+  sort
+
+]);
 
   const fetchJobs = async () => {
 
     try {
 
-      const res = await API.get("/jobs");
+      const res = await API.get(
+
+  `/jobs?search=${search}&minBudget=${minBudget}&maxBudget=${maxBudget}&sort=${sort}`
+
+);
 
       setJobs(res.data);
 
@@ -138,6 +154,44 @@ function Jobs() {
       <h1 className="text-4xl font-bold mb-8">
         Available Jobs
       </h1>
+
+      <div className="flex flex-wrap gap-4 mb-8">
+
+  <input
+    type="text"
+    placeholder="Search jobs..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  />
+
+  <input
+    type="number"
+    placeholder="Min Budget"
+    value={minBudget}
+    onChange={(e) => setMinBudget(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  />
+
+  <input
+    type="number"
+    placeholder="Max Budget"
+    value={maxBudget}
+    onChange={(e) => setMaxBudget(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  />
+
+  <select
+    value={sort}
+    onChange={(e) => setSort(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  >
+    <option value="newest">Newest</option>
+    <option value="highest">Highest Budget</option>
+    <option value="lowest">Lowest Budget</option>
+  </select>
+
+</div>
 
       <div className="space-y-6">
 
@@ -353,3 +407,4 @@ function Jobs() {
 }
 
 export default Jobs;
+

@@ -57,11 +57,79 @@ const getJobs = async (req, res) => {
 
   try {
 
-    const jobs = await Job.find()
+    const {
+      search,
+      minBudget,
+      maxBudget,
+      sort
+    } = req.query;
 
-      .populate("client", "name email")
+    let filter = {};
 
-      .sort({ createdAt: -1 });
+    if (search) {
+
+      filter.$or = [
+
+        {
+          title: {
+            $regex: search,
+            $options: "i"
+          }
+        },
+
+        {
+          description: {
+            $regex: search,
+            $options: "i"
+          }
+        }
+
+      ];
+
+    }
+
+    if (minBudget || maxBudget) {
+
+      filter.budget = {};
+
+      if (minBudget) {
+        filter.budget.$gte = Number(minBudget);
+      }
+
+      if (maxBudget) {
+        filter.budget.$lte = Number(maxBudget);
+      }
+
+    }
+
+    let query = Job.find(filter)
+      .populate("client", "name email");
+
+    if (sort === "highest") {
+
+      query = query.sort({
+        budget: -1
+      });
+
+    }
+
+    else if (sort === "lowest") {
+
+      query = query.sort({
+        budget: 1
+      });
+
+    }
+
+    else {
+
+      query = query.sort({
+        createdAt: -1
+      });
+
+    }
+
+    const jobs = await query;
 
     res.status(200).json(jobs);
 
@@ -72,9 +140,7 @@ const getJobs = async (req, res) => {
     console.log(error);
 
     res.status(500).json({
-
       message: error.message
-
     });
 
   }
