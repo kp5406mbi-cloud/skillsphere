@@ -153,7 +153,7 @@ function Applicants() {
 
     const options = {
 
-      key: "rzp_test_Su8OSFCk8Jf5b4",
+      key: import.meta.env.VITE_RAZORPAY_KEY_ID,
 
       amount: data.order.amount,
 
