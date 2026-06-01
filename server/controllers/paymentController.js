@@ -1,3 +1,6 @@
+const Application =
+  require("../models/Application");
+
 const crypto =
   require("crypto");
 
@@ -97,6 +100,25 @@ const verifyPayment =
             "completed"
 
         });
+
+        await Application.findOneAndUpdate(
+
+  {
+
+    job: jobId,
+
+    freelancer: freelancerId
+
+  },
+
+  {
+
+    paymentStatus:
+      "completed"
+
+  }
+
+);
 
       res.status(200).json({
 

@@ -69,9 +69,22 @@ const applicationSchema =
 
         default: "pending"
 
-      }
+      },
 
-    },
+      paymentStatus: {
+
+  type: String,
+
+  enum: [
+    "pending",
+    "completed"
+  ],
+
+  default: "pending"
+
+},
+
+   },
 
     {
 
@@ -79,7 +92,7 @@ const applicationSchema =
 
     }
 
-  );
+   );
 
 module.exports = mongoose.model(
   "Application",

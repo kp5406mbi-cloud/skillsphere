@@ -612,47 +612,62 @@ function Applicants() {
 
                     }
 
-                   {
+                  {
   app.status === "accepted" && (
 
-    <button
+    app.paymentStatus === "completed" ? (
 
-      onClick={() => {
+      <button
 
-        console.log(
-          "FREELANCER VALUE:",
-          app.freelancer
-        );
+        disabled
 
-        console.log(
-          "FREELANCER ID:",
-          app.freelancer?._id || app.freelancer
-        );
+        className="
+          bg-gray-500
+          text-white
+          px-4
+          py-2
+          rounded
+          cursor-not-allowed
+        "
 
-        handlePayment(
-          app.bidAmount,
-          app.freelancer?._id || app.freelancer,
-          id
-        );
+      >
 
-      }}
+        Paid
 
-      className="
-        bg-yellow-500
-        text-black
-        px-4
-        py-2
-        rounded
-        hover:bg-yellow-600
-        transition
-        font-semibold
-      "
+      </button>
 
-    >
+    ) : (
 
-      Pay Now
+      <button
 
-    </button>
+        onClick={() => {
+
+          handlePayment(
+            app.bidAmount,
+            app.freelancer?._id || app.freelancer,
+            id
+          );
+
+        }}
+
+        className="
+          bg-yellow-500
+          text-black
+          px-4
+          py-2
+          rounded
+          hover:bg-yellow-600
+          transition
+          font-semibold
+        "
+
+      >
+
+        Pay Now
+
+      </button>
+
+    )
 
   )
 }
