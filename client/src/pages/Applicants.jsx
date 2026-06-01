@@ -611,13 +611,25 @@ function Applicants() {
 
                         <button
 
-                          onClick={() =>
-                           handlePayment(
-      app.bidAmount,
-      app.freelancer._id,
-      id
-    )
-                          }
+                        onClick={() => {
+
+  console.log(
+    "PAYMENT CLICK",
+    {
+      freelancer: app.freelancer,
+      freelancerId: app.freelancer?._id,
+      jobId: id,
+      amount: app.bidAmount
+    }
+  );
+
+  handlePayment(
+    app.bidAmount,
+    app.freelancer?._id || app.freelancer,
+    id
+  );
+
+}}
 
                           className="
                             bg-yellow-500
