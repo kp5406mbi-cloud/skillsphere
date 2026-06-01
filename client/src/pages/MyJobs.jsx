@@ -8,6 +8,11 @@ import { toast } from "react-toastify";
 
 function MyJobs() {
 
+  const [search, setSearch] = useState("");
+const [minBudget, setMinBudget] = useState("");
+const [maxBudget, setMaxBudget] = useState("");
+const [sort, setSort] = useState("newest");
+
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
@@ -230,6 +235,40 @@ razorpay.open();
 
   };
 
+  const filteredJobs = [...jobs]
+  .filter((job) =>
+    job.title
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  )
+  .filter(
+    (job) =>
+      !minBudget ||
+      job.budget >= Number(minBudget)
+  )
+  .filter(
+    (job) =>
+      !maxBudget ||
+      job.budget <= Number(maxBudget)
+  )
+  .sort((a, b) => {
+
+    if (sort === "highest") {
+      return b.budget - a.budget;
+    }
+
+    if (sort === "lowest") {
+      return a.budget - b.budget;
+    }
+
+    return (
+      new Date(b.createdAt) -
+      new Date(a.createdAt)
+    );
+
+  });
+
+  
   return (
 
     <div className="min-h-screen bg-black text-white p-10">
@@ -239,6 +278,44 @@ razorpay.open();
         My Posted Jobs
 
       </h1>
+
+      <div className="flex flex-wrap gap-4 mb-8">
+
+  <input
+    type="text"
+    placeholder="Search jobs..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  />
+
+  <input
+    type="number"
+    placeholder="Min Budget"
+    value={minBudget}
+    onChange={(e) => setMinBudget(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  />
+
+  <input
+    type="number"
+    placeholder="Max Budget"
+    value={maxBudget}
+    onChange={(e) => setMaxBudget(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  />
+
+  <select
+    value={sort}
+    onChange={(e) => setSort(e.target.value)}
+    className="p-3 rounded bg-gray-800 text-white"
+  >
+    <option value="newest">Newest</option>
+    <option value="highest">Highest Budget</option>
+    <option value="lowest">Lowest Budget</option>
+  </select>
+
+</div>
 
       {
 
@@ -267,7 +344,7 @@ razorpay.open();
 
             {
 
-              jobs.map((job) => (
+              filteredJobs.map((job) => (
 
                 <div
 
