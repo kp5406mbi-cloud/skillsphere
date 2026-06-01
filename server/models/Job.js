@@ -70,6 +70,12 @@ const jobSchema = new mongoose.Schema(
 
     },
 
+    paymentStatus: {
+  type: String,
+  enum: ["pending", "completed"],
+  default: "pending"
+},
+
     proposalText: String,
 
     bidAmount: Number,

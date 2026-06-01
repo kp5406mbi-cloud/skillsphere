@@ -1,3 +1,4 @@
+const Job = require("../models/Job");
 const Application =
   require("../models/Application");
 
@@ -100,6 +101,18 @@ const verifyPayment =
             "completed"
 
         });
+
+        await Job.updateOne(
+  {
+    _id: jobId,
+    "applications.freelancer": freelancerId
+  },
+  {
+    $set: {
+      "applications.$.paymentStatus": "completed"
+    }
+  }
+);
 
         await Application.findOneAndUpdate(
 
