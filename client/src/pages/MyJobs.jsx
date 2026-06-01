@@ -134,6 +134,14 @@ const [sort, setSort] = useState("newest");
 
           try {
 
+             console.log(
+      "VERIFY REQUEST:",
+      freelancerId,
+      jobId,
+      amount
+    );
+
+
             await API.post(
 
               "/payments/verify",
