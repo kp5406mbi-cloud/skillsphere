@@ -181,6 +181,13 @@ function Applicants() {
 
         try {
 
+            console.log("VERIFY DATA:", {
+      freelancerId,
+      jobId,
+      amount
+    });
+
+
           await API.post(
 
             "/payments/verify",
