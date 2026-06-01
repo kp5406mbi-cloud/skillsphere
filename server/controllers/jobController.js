@@ -57,6 +57,11 @@ const getJobs = async (req, res) => {
 
   try {
 
+    console.log(
+  "GET JOBS USER:",
+  req.user
+);
+
     const {
       search,
       minBudget,
@@ -133,14 +138,41 @@ const getJobs = async (req, res) => {
 
 const jobsWithStatus = jobs.map((job) => {
 
+  console.log(
+    "JOB:",
+    job.title
+  );
+
+  console.log(
+    "APPLICATIONS:",
+    job.applications
+  );
+
   const application = job.applications?.find(
 
-    (app) =>
+     (app) => {
+    console.log(
+      "APP FREELANCER:",
+      app.freelancer.toString()
+    );
+
+    console.log(
+      "CURRENT USER:",
+      req.user.id
+    );
+
+     return (
 
       app.freelancer.toString() ===
       req.user.id
 
-  );
+    );
+
+  }
+
+);
+
+  
 
   return {
 
