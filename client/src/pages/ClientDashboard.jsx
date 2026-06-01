@@ -59,6 +59,23 @@ function ClientDashboard() {
 
   };
 
+  const totalJobs = jobs.length;
+
+const totalApplicants = jobs.reduce(
+  (count, job) =>
+    count + (job.applications?.length || 0),
+  0
+);
+
+const acceptedApplicants = jobs.reduce(
+  (count, job) =>
+    count +
+    (job.applications?.filter(
+      (app) => app.status === "accepted"
+    ).length || 0),
+  0
+);
+
   const handleLogout = () => {
 
     localStorage.removeItem("token");
@@ -87,7 +104,7 @@ function ClientDashboard() {
 
         </div>
 
-        <button
+       <button
           onClick={handleLogout}
           className="
             bg-red-600
@@ -106,6 +123,40 @@ function ClientDashboard() {
         </button>
 
       </div>
+
+      <div className="grid md:grid-cols-3 gap-6 mt-10">
+
+  <div className="bg-blue-900 p-6 rounded-xl">
+    <h3 className="text-lg text-gray-300">
+      Total Jobs
+    </h3>
+
+    <p className="text-4xl font-bold mt-2">
+      {totalJobs}
+    </p>
+  </div>
+
+  <div className="bg-green-900 p-6 rounded-xl">
+    <h3 className="text-lg text-gray-300">
+      Total Applicants
+    </h3>
+
+    <p className="text-4xl font-bold mt-2">
+      {totalApplicants}
+    </p>
+  </div>
+
+  <div className="bg-purple-900 p-6 rounded-xl">
+    <h3 className="text-lg text-gray-300">
+      Accepted Freelancers
+    </h3>
+
+    <p className="text-4xl font-bold mt-2">
+      {acceptedApplicants}
+    </p>
+  </div>
+
+</div>
 
       <div className="mt-10">
 
