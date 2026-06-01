@@ -9,6 +9,8 @@ const verifyPayment =
 
     try {
 
+      console.log("VERIFY BODY:", req.body);
+
       const {
 
         razorpay_order_id,
@@ -66,6 +68,11 @@ const verifyPayment =
         });
 
       }
+
+      console.log(
+  "FREELANCER ID:",
+  freelancerId
+);
 
       const payment =
         await Payment.create({
