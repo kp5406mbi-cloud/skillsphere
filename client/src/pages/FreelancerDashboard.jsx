@@ -241,15 +241,8 @@ useEffect(() => {
             .map((job) => {
 
               const alreadyApplied =
-                job.applications?.some(
-
-                  (app) =>
-
-                    app.freelancer.toString() ===
-                    user?._id
-
-                );
-
+  job.hasApplied;
+  
               return (
 
                 <div
@@ -339,46 +332,49 @@ useEffect(() => {
 
                   {/* Apply Button */}
 
-                  <button
+                <button
 
-                    disabled={alreadyApplied}
+  disabled={alreadyApplied}
 
-                    onClick={() =>
-                      setOpenProposal(job._id)
-                    }
+  onClick={() =>
+    setOpenProposal(job._id)
+  }
 
-                    className={`
-                      w-full
-                      px-5
-                      py-3
-                      rounded-xl
-                      font-bold
-                      mt-4
-                      transition
+  className={`
+    w-full
+    px-5
+    py-3
+    rounded-xl
+    font-bold
+    mt-4
+    transition
 
-                      ${
-                        alreadyApplied
+    ${
+      alreadyApplied
 
-                          ? "bg-gray-600 cursor-not-allowed"
+        ? "bg-gray-600 cursor-not-allowed"
 
-                          : "bg-blue-600 hover:bg-blue-700"
+        : "bg-blue-600 hover:bg-blue-700"
 
-                      }
-                    `}
+    }
+  `}
 
-                  >
+>
 
-                    {
+  {
 
-                      alreadyApplied
+    alreadyApplied
 
-                        ? "Already Applied"
+      ? "Already Applied"
 
-                        : "Apply Now"
+      : "Apply Now"
 
-                    }
+  }
 
-                    {
+</button>
+
+{
+
   job.client && (
 
     <button
@@ -406,9 +402,8 @@ useEffect(() => {
     </button>
 
   )
-}
 
-                  </button>
+}
 
                 </div>
 

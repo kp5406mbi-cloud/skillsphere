@@ -129,9 +129,35 @@ const getJobs = async (req, res) => {
 
     }
 
-    const jobs = await query;
+    const jobs = await query.lean();
 
-    res.status(200).json(jobs);
+const jobsWithStatus = jobs.map((job) => {
+
+  const application = job.applications?.find(
+
+    (app) =>
+
+      app.freelancer.toString() ===
+      req.user.id
+
+  );
+
+  return {
+
+    ...job,
+
+    hasApplied: !!application,
+
+    applicationStatus:
+      application?.status || null
+
+  };
+
+});
+
+res.status(200).json(jobsWithStatus);
+
+    
 
   }
 
