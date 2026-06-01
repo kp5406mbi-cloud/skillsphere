@@ -46,35 +46,51 @@ const jobSchema = new mongoose.Schema(
 
     applications: [
 
-      {
+  {
 
-        freelancer: {
+    freelancer: {
 
-          type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
 
-          ref: "User"
+      ref: "User"
 
-        },
+    },
 
-        proposalText: String,
+    status: {
 
-        bidAmount: Number,
+      type: String,
 
-        estimatedDays: Number,
+      enum: [
+        "pending",
+        "accepted",
+        "rejected"
+      ],
 
-        resume: String,
+      default: "pending"
 
-        appliedAt: {
+    },
 
-          type: Date,
+    proposalText: String,
 
-          default: Date.now
+    bidAmount: Number,
 
-        }
+    estimatedDays: Number,
 
-      }
+    resume: String,
 
-    ]
+    appliedAt: {
+
+      type: Date,
+
+      default: Date.now
+
+    }
+
+  }
+
+]
+
+   
 
   },
 
