@@ -451,161 +451,182 @@ razorpay.open();
 
                           {
 
-                            job.applications.map((app) => (
+                            job.applications.map((app) => {
 
-                              <div
+  console.log(
+  "APPLICATION:",
+  app
+);
 
-                                key={app._id}
+return (
 
-                                className="
-                                  bg-gray-800
-                                  p-5
-                                  rounded-xl
-                                "
+    <div
 
-                              >
+      key={app._id}
 
-                                <h4
-                                  className="
-                                    text-xl
-                                    font-semibold
-                                  "
-                                >
+      className="
+        bg-gray-800
+        p-5
+        rounded-xl
+      "
 
-                                  {
-                                    app.freelancer?.name
-                                  }
+    >
 
-                                </h4>
+      <h4
+        className="
+          text-xl
+          font-semibold
+        "
+      >
 
-                                <p className="mt-2 text-gray-400">
+        {app.freelancer?.name}
 
-                                  {
-                                    app.freelancer?.email
-                                  }
+      </h4>
 
-                                </p>
+      <p className="mt-2 text-gray-400">
 
-                                <p className="text-gray-300 mt-4">
+        {app.freelancer?.email}
 
-                                  <span className="font-semibold">
+      </p>
 
-                                    Proposal:
+      <p className="text-gray-300 mt-4">
 
-                                  </span>{" "}
+        <span className="font-semibold">
+          Proposal:
+        </span>{" "}
 
-                                  {
-                                    app.proposalText
-                                  }
+        {app.proposalText}
 
-                                </p>
+      </p>
 
-                                <p className="text-green-400 mt-3">
+      <p className="text-green-400 mt-3">
 
-                                  <span className="font-semibold">
+        <span className="font-semibold">
+          Bid Amount:
+        </span>{" "}
 
-                                    Bid Amount:
+        ₹{app.bidAmount}
 
-                                  </span>{" "}
+      </p>
 
-                                  ₹{app.bidAmount}
+      <p className="text-yellow-400 mt-2">
 
-                                </p>
+        <span className="font-semibold">
+          Delivery Time:
+        </span>{" "}
 
-                                <p className="text-yellow-400 mt-2">
+        {app.estimatedDays} days
 
-                                  <span className="font-semibold">
+      </p>
 
-                                    Delivery Time:
+      <div className="flex gap-4 mt-5">
 
-                                  </span>{" "}
+        {
 
-                                  {
-                                    app.estimatedDays
-                                  } days
+          app.resume ? (
 
-                                </p>
+            <a
 
-                                <div className="flex gap-4 mt-5">
+              href={app.resume}
 
-                                  {
+              target="_blank"
 
-                                    app.resume ? (
+              rel="noreferrer"
 
-                                      <a
+              className="
+                inline-block
+                bg-blue-600
+                px-5
+                py-2
+                rounded-lg
+                hover:bg-blue-700
+                transition
+              "
 
-                                          href={app.resume}
+            >
 
-                                        target="_blank"
+              View Resume
 
-                                        rel="noreferrer"
+            </a>
 
-                                        className="
-                                          inline-block
-                                          bg-blue-600
-                                          px-5
-                                          py-2
-                                          rounded-lg
-                                          hover:bg-blue-700
-                                          transition
-                                        "
+          ) : (
 
-                                      >
+            <p className="text-red-400">
 
-                                        View Resume
+              Resume Not Uploaded
 
-                                      </a>
+            </p>
 
-                                    ) : (
+          )
 
-                                      <p className="text-red-400">
+        }
 
-                                        Resume Not Uploaded
+        {
 
-                                      </p>
+          app.paymentStatus ===
+          "completed" ? (
 
-                                    )
+            <button
 
-                                  }
+              disabled
 
-                                  <button
+              className="
+                bg-green-600
+                px-5
+                py-2
+                rounded-lg
+                font-semibold
+              "
 
-                                    onClick={() =>
-                                      handlePayment(
+            >
 
-                                        app.bidAmount,
+              Paid
 
-                                        app.freelancer._id,
+            </button>
 
-                                        job._id
+          ) : (
 
-                                      )
-                                    }
+            <button
 
-                                    className="
-                                      bg-yellow-500
-                                      px-5
-                                      py-2
-                                      rounded-lg
-                                      hover:bg-yellow-600
-                                      transition
-                                      font-semibold
-                                      text-black
-                                    "
+              onClick={() =>
+                handlePayment(
+                  app.bidAmount,
+                  app.freelancer._id,
+                  job._id
+                )
+              }
 
-                                  >
+              className="
+                bg-yellow-500
+                px-5
+                py-2
+                rounded-lg
+                hover:bg-yellow-600
+                transition
+                font-semibold
+                text-black
+              "
 
-                                    Pay Freelancer
+            >
 
-                                  </button>
+              Pay Freelancer
 
-                                </div>
+            </button>
 
-                              </div>
+          )
 
-                            ))
+        }
 
-                          }
+      </div>
+
+    </div>
+
+  );
+
+})
+
+                      
+                    }
 
                         </div>
 
@@ -632,5 +653,4 @@ razorpay.open();
   );
 
 }
-
-export default MyJobs;
+export default MyJobs
