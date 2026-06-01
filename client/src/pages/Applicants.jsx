@@ -605,71 +605,70 @@ function Applicants() {
 
                     }
 
-                    {
+                   {
+  app.status === "accepted" && (
 
-                      app.status === "accepted" && (
+    <button
 
-                        <button
+      onClick={() => {
 
-                        onClick={() => {
+        console.log(
+          "FREELANCER VALUE:",
+          app.freelancer
+        );
 
-  console.log(
-    "PAYMENT CLICK",
-    {
-      freelancer: app.freelancer,
-      freelancerId: app.freelancer?._id,
-      jobId: id,
-      amount: app.bidAmount
-    }
-  );
+        console.log(
+          "FREELANCER ID:",
+          app.freelancer?._id || app.freelancer
+        );
 
-  handlePayment(
-    app.bidAmount,
-    app.freelancer?._id || app.freelancer,
-    id
-  );
+        handlePayment(
+          app.bidAmount,
+          app.freelancer?._id || app.freelancer,
+          id
+        );
 
-}}
+      }}
 
-                          className="
-                            bg-yellow-500
-                            text-black
-                            px-4
-                            py-2
-                            rounded
-                            hover:bg-yellow-600
-                            transition
-                            font-semibold
-                          "
+      className="
+        bg-yellow-500
+        text-black
+        px-4
+        py-2
+        rounded
+        hover:bg-yellow-600
+        transition
+        font-semibold
+      "
 
-                        >
+    >
 
-                          Pay Now
+      Pay Now
 
-                        </button>
+    </button>
 
-                      )
+  )
+}
 
-                    }
+</div>          
 
-                  </div>
+</div>          
 
-                </div>
+))              
 
-              ))
+}               
 
-            }
+</div>          
 
-          </div>
+)               
 
-        )
+}               
 
-      }
+</div>         
 
-    </div>
-
-  );
+);
 
 }
 
 export default Applicants;
+
