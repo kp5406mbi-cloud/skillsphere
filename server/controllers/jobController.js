@@ -136,6 +136,16 @@ const getJobs = async (req, res) => {
 
     const jobs = await query.lean();
 
+    console.log(
+  "TOTAL JOBS FOUND:",
+  jobs.length
+);
+
+console.log(
+  "JOBS:",
+  JSON.stringify(jobs, null, 2)
+);
+
 const jobsWithStatus = jobs.map((job) => {
 
   console.log(

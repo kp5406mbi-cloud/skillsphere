@@ -34,6 +34,7 @@ router.post(
 
 router.get(
   "/",
+  protect,
   getJobs
 );
 
