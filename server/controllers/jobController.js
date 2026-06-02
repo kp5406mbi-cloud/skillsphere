@@ -345,7 +345,7 @@ const getMyApplications = async (req, res) => {
 
       "applications.freelancer":
         req.user.id,
-        status: "open"
+        
 
     }).populate(
       "client",
@@ -513,16 +513,25 @@ const getClientJobs = async (req, res) => {
       allJobs
     );
 
-    const jobs = await Job.find();
+const filteredJobs =
+  await Job.find({
 
-const filteredJobs = jobs.filter(
+    client: req.user.id,
 
-  (job) =>
+    status: "open"
 
-    job.client.toString() ===
-    req.user.id.toString()
+  });
 
+console.log(
+  "FILTERED JOBS:",
+  filteredJobs
 );
+
+res.status(200).json(
+  filteredJobs
+);
+
+return;
 
 console.log(
   "FILTERED JOBS:",
