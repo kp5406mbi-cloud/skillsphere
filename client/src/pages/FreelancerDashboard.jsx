@@ -34,7 +34,12 @@ useEffect(() => {
     try {
 
       const res = await API.get(
-  `/jobs?search=${search}&minBudget=${minBudget}&maxBudget=${maxBudget}&sort=${sort}`
+  `/jobs?search=${search}&minBudget=${minBudget}&maxBudget=${maxBudget}&sort=${sort}`,
+  {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  }
 );
 
       setJobs(res.data);
@@ -242,7 +247,7 @@ useEffect(() => {
 
               const alreadyApplied =
   job.hasApplied;
-  
+
               return (
 
                 <div
