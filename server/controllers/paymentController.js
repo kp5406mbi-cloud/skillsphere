@@ -112,6 +112,12 @@ await Job.findByIdAndUpdate(
   }
 );
 
+
+console.log(
+  "JOB MARKED COMPLETED:",
+  jobId
+);
+
         await Job.updateOne(
   {
     _id: jobId,
