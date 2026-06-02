@@ -46,6 +46,16 @@ function ClientDashboard() {
 
       setJobs(response.data);
 
+      console.log(
+  "DASHBOARD JOBS:",
+  response.data
+);
+
+console.log(
+  "TOTAL JOBS:",
+  response.data.length
+);
+
     }
 
     catch (error) {
