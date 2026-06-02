@@ -34,11 +34,14 @@ const currentUserId =
 
     fetchMessages();
 
-  }, []);
+  }, [id]);
 
   const fetchMessages = async () => {
 
     try {
+
+    console.log("CURRENT USER:", currentUserId);
+    console.log("CHATTING WITH:", id);
 
       const res = await API.get(
 

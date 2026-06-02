@@ -52,6 +52,9 @@ const getMessages =
 
     try {
 
+      console.log("REQ USER:", req.user.id);
+console.log("OTHER USER:", req.params.userId);
+
       const messages =
         await Message.find({
 
