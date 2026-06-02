@@ -42,7 +42,10 @@ useEffect(() => {
   }
 );
 
-      setJobs(res.data);
+    
+
+      console.log("API JOBS:", res.data);
+setJobs(res.data);
 
     }
 
@@ -134,6 +137,8 @@ useEffect(() => {
     navigate("/");
 
   };
+
+  console.log("STATE JOBS:", jobs);
 
   return (
 
