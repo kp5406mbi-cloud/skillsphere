@@ -522,9 +522,14 @@ const filteredJobs =
 
   });
 
+  console.log(
+  "FILTERED JOBS COUNT:",
+  filteredJobs.length
+);
+
 console.log(
   "FILTERED JOBS:",
-  filteredJobs
+  JSON.stringify(filteredJobs, null, 2)
 );
 
 res.status(200).json(

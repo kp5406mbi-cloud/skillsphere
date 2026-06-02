@@ -23,53 +23,34 @@ const [sort, setSort] = useState("newest");
 
   const fetchMyJobs = async () => {
 
-    try {
+  try {
 
-      const response = await API.get("/jobs");
+    const response = await API.get(
+      "/jobs/client/my-jobs",
+      {
+        headers: {
+          Authorization:
+            `Bearer ${localStorage.getItem("token")}`
+        }
+      }
+    );
 
-      const currentUser = JSON.parse(
-        localStorage.getItem("user")
-      );
+    console.log(
+      "MY JOBS:",
+      response.data
+    );
 
-      console.log(
-        "CURRENT USER:",
-        currentUser
-      );
+    setJobs(response.data);
 
-      console.log(
-        "ALL JOBS:",
-        response.data
-      );
+  }
 
-      const filteredJobs =
-        response.data.filter(
+  catch (error) {
 
-          (job) =>
+    console.log(error);
 
-            job.client?._id ===
-(
-  currentUser._id ||
-  currentUser.id
-)
+  }
 
-        );
-
-      console.log(
-        "FILTERED JOBS:",
-        filteredJobs
-      );
-
-      setJobs(filteredJobs);
-
-    }
-
-    catch (error) {
-
-      console.log(error);
-
-    }
-
-  };
+};
 
   const handlePayment = async (
     amount,
