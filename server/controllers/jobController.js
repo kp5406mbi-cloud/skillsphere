@@ -513,16 +513,17 @@ const getClientJobs = async (req, res) => {
       allJobs
     );
 
-const filteredJobs =
+    const filteredJobs =
   await Job.find({
 
-    client: req.user.id,
+    client: req.user.id
 
-    status: "open"
+  }).populate(
+    "applications.freelancer",
+    "name email"
+  );
 
-  });
-
-  console.log(
+ console.log(
   "FILTERED JOBS COUNT:",
   filteredJobs.length
 );

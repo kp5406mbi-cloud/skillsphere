@@ -25,6 +25,13 @@ const [sort, setSort] = useState("newest");
 
   try {
 
+    console.log(
+  "LOCAL USER:",
+  JSON.parse(
+    localStorage.getItem("user")
+  )
+);
+
     const response = await API.get(
       "/jobs/client/my-jobs",
       {
