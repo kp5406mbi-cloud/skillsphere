@@ -47,66 +47,61 @@ const sendMessage =
 
 };
 
-const getMessages =
-  async (req, res) => {
+const getMessages = async (req, res) => {
 
-    try {
+  try {
 
-      console.log("REQ USER:", req.user.id);
-console.log("OTHER USER:", req.params.userId);
+    console.log("REQ USER:", req.user.id);
+    console.log("OTHER USER:", req.params.userId);
 
-      const messages =
-        await Message.find({
+    const messages = await Message.find({
 
-          $or: [
+      $or: [
 
-            {
+        {
+          sender: req.user.id,
+          receiver: req.params.userId
+        },
 
-              sender:
-                req.user.id,
+        {
+          sender: req.params.userId,
+          receiver: req.user.id
+        }
 
-              receiver:
-                req.params.userId
+      ]
 
-            },
+    })
 
-            {
+    .populate(
+      "sender",
+      "_id name"
+    )
 
-              sender:
-                req.params.userId,
+    .sort({
+      createdAt: 1
+    });
 
-              receiver:
-                req.user.id
+    console.log(
+      "MESSAGES FOUND:",
+      messages.length
+    );
 
-            }
+    console.log(
+      "MESSAGES:",
+      messages
+    );
 
-          ]
+    res.json(messages);
 
-        })
+  }
 
-        .populate(
-          "sender",
-          "_id name"
-        )
+  catch (error) {
 
-        .sort({
-          createdAt: 1
-        });
+    res.status(500).json({
+      message: error.message
+    });
 
-      res.json(messages);
-
-    }
-
-    catch (error) {
-
-      res.status(500).json({
-
-        message:
-          error.message
-
-      });
-
-    }
+  }
 
 };
 
