@@ -310,8 +310,7 @@ npm run dev
 Integrated M.Sc. Mathematics and Computing
 BIT Mesra
 
-GitHub:
-https://github.com/kp5406mbi-cloud
+
 
 ---
 
