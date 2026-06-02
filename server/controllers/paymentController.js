@@ -102,6 +102,16 @@ const verifyPayment =
 
         });
 
+        const Job =
+  require("../models/Job");
+
+await Job.findByIdAndUpdate(
+  jobId,
+  {
+    status: "completed"
+  }
+);
+
         await Job.updateOne(
   {
     _id: jobId,

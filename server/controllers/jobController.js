@@ -344,7 +344,8 @@ const getMyApplications = async (req, res) => {
     const jobs = await Job.find({
 
       "applications.freelancer":
-        req.user.id
+        req.user.id,
+        status: "open"
 
     }).populate(
       "client",
