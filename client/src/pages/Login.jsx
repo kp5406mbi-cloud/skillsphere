@@ -38,7 +38,7 @@ function Login() {
 
 localStorage.setItem(
   "userId",
-  response.data.user._id
+  response.data.user.id
 );
 
       alert("Login successful");

@@ -18,7 +18,9 @@ function Chat() {
 console.log("USER OBJECT:", storedUser);
 
 const currentUserId =
+  storedUser?.id ||
   storedUser?._id ||
+  storedUser?.user?.id ||
   storedUser?.user?._id;
 
 console.log("CURRENT USER ID:", currentUserId);
