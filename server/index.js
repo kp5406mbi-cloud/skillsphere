@@ -42,7 +42,19 @@ app.use(
   express.static("uploads")
 );
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:5174",
+      "https://skillsphere-client-my3i.onrender.com",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 
 const fs = require("fs");
