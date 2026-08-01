@@ -46,14 +46,20 @@ function Register() {
         </h1>
 
         <input
-          type="text"
-          name="name"
-          value={formData.name}
-          placeholder="Name"
-          onChange={handleChange}
-          className="p-3 rounded bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500"
-          required
-        />
+  type="text"
+  name="name"
+  value={formData.name}
+  placeholder="Name"
+  onChange={handleChange}
+  style={{
+    background: "#1f2937",
+    color: "white",
+    padding: "12px",
+    borderRadius: "8px",
+    border: "1px solid white",
+    width: "100%"
+  }}
+/>
 
         <input
           type="email"
