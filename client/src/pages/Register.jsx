@@ -60,7 +60,7 @@ function Register() {
           name="name"
           placeholder="Name"
           onChange={handleChange}
-          className="p-3 rounded bg-gray-800"
+          className="p-3 rounded bg-white-800"
         />
 
         <input

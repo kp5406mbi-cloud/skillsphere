@@ -11,16 +11,17 @@ import { toast } from "react-toastify";
 
 function Chat() {
 
-  const storedUser =
-  JSON.parse(
-    localStorage.getItem("user")
-  );
+  const storedUser = JSON.parse(
+  localStorage.getItem("user")
+);
+
+console.log("USER OBJECT:", storedUser);
 
 const currentUserId =
-
   storedUser?._id ||
-
   storedUser?.user?._id;
+
+console.log("CURRENT USER ID:", currentUserId);
 
   const { id } = useParams();
 

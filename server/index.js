@@ -1,10 +1,27 @@
+require("dotenv").config();
+
+console.log(
+  "CLOUD NAME:",
+  process.env.CLOUDINARY_CLOUD_NAME
+);
+
+console.log(
+  "API KEY:",
+  process.env.CLOUDINARY_API_KEY
+);
+
+console.log(
+  "API SECRET:",
+  process.env.CLOUDINARY_API_SECRET
+);
+
 const messageRoutes =
   require("./routes/messageRoutes");
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-require("dotenv").config();
+
 
 const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
